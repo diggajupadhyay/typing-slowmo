@@ -1,0 +1,21 @@
+#!/bin/bash
+
+read -p "Enter the path to the file." file
+
+if [[ ! -f "$file" ]]; then
+  echo "File not found. Please enter a valid file path."
+  exit 1
+fi
+
+read -p "This script will simulate typing the file character by character with pauses between words. Press 'Enter' to start."
+
+clear
+
+while IFS= read -r -N 1 char; do
+  if [[ "$char" == " " ]]; then
+    sleep 0.4  # Pause between words
+  else
+    sleep 0.05  # Pause between characters
+  fi
+  echo -n "$char"
+done < "$file"
